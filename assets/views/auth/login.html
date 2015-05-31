@@ -1,0 +1,21 @@
+<div ng-show="error">
+
+ you fucked up
+</div>
+  <form role="form" ng-submit="logIn(identifier, password)">
+    <md-input-container>
+      <label>Username or Email</label>
+        <input name="Username or Email" ng-model="identifier" required>
+    </md-input-container>
+    <md-input-container>
+      <label>Password</label required>
+        <input type="password" name="password" ng-model="password">
+    </md-input-container>
+    <md-button> submit </md-button>
+  </form>
+  or login with facebook!
+  <md-button href="/auth/facebook"><i class="fa fa-facebook fa-2x"></i></md-button>
+
+  Or, don't have an account?
+
+  <a href="/register">Create one here!</a>

@@ -1,0 +1,53 @@
+<div layout="row"  ng-controller="sideNavCtrl">
+      <md-sidenav md-component-id="left" class="md-sidenav-left blue darken-4">
+        <md-list>
+
+          </md-list>
+      </md-sidenav>
+
+      <md-sidenav  class="blue darken-4" style="height:100vh" md-is-locked-open="$mdMedia('min-width: 775px')" class="md-sidenav-left">
+        <header class="nav-header" id="brandLogo">
+          <h3>SIPRMNCH</h3>
+          <md-divider></md-divider>
+        </header>
+        <div id="sideNavBody">
+          <md-list>
+             This is the sideNav content
+          </md-list>
+        </div>
+
+      </md-sidenav>
+
+
+   <!--  </div> -->
+  <div layout="column" layout-fill>
+  <md-toolbar class="blue darken-3">
+    <div class="md-toolbar-tools">
+      <span>My App's Title</span>
+       <md-button ng-click="openLeftMenu()">
+      Open Left Menu
+    </md-button>
+
+      <!-- fill up the space between left and right area -->
+      <span flex></span>
+      <md-button href="/#!/login" ng-hide="loggedIn">
+        Log In
+      </md-button>
+      <md-button href="/logout" ng-show="loggedIn">
+        Log Out
+      </md-button>
+    </div>
+  </md-toolbar>
+    <md-content>
+      <div class="container">
+
+          <!-- This is the main view window -->
+
+       <ng-view></ng-view>
+
+         <!--  End main view window -->
+
+      </div>
+    </md-content>
+  </div>
+</div>

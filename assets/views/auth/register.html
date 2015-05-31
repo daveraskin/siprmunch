@@ -1,0 +1,23 @@
+<form role="form" ng-submit="register()">
+    <md-input-container>
+      <label>Username</label>
+        <input name="Username" ng-model="formData.username">
+    </md-input-container>
+    <md-input-container>
+      <label>E-mail</label>
+        <input name="E-mail" ng-model="formData.email" required>
+    </md-input-container>
+    <md-input-container>
+      <label>Password</label>
+        <input type="password" name="password" ng-model="formData.password" required>
+    </md-input-container>
+    <md-input-container>
+      <label>First Name</label>
+        <input name="firstName" ng-model="formData.firstName">
+    </md-input-container>
+    <md-input-container>
+      <label>Last Name</label>
+        <input name="lastName" ng-model="formData.lastName">
+    </md-input-container>
+    <md-button> submit </md-button>
+</form>
