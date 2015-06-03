@@ -5,16 +5,9 @@ var User = {
   attributes: {
     username  : { type: 'string', unique: true },
     email     : { type: 'email',  unique: true },
-    firstName : { type: 'string', required: false},
-    lastName  : { type: 'string', required: false},
-    city      : { type: 'string', required: false},
-    state     : { type: 'string', required: false},
-    passports : { collection: 'Passport', via: 'user' }
-  },
-  posts:{
-    collection: "Post",
-    via: "user"
+    passports : { collection: 'Passport', via: 'user' },
+    userInfo  : { model: 'UserInfo' }
   }
-};
+  };
 
 module.exports = User;

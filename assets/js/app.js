@@ -1,10 +1,7 @@
-siprmnchAngular = angular.module('siprmnchAngular', ['ngMaterial', 'ngRoute','ngResource'])
+siprmnchAngular = angular.module('siprmnchAngular', ['ngMaterial', 'ngRoute','ngResource', 'bootstrap.fileField'])
 
 siprmnchAngular.run(['$rootScope', 'userService',function($rootScope, userService) {
-  userService.check(function(data){
-    console.log(userService.loggedIn)
-    $rootScope.loggedIn = userService.loggedIn
-  })
+
 
 }])
 
@@ -22,6 +19,14 @@ siprmnchAngular.config(['$routeProvider', '$locationProvider', function($routePr
   .when('/register', {
     templateUrl: 'views/auth/register.html',
     controller: 'authCtrl'
+  })
+  .when('/createPost', {
+    templateUrl: 'views/pages/createPost.html',
+    controller: 'homeCtrl'
+  })
+  .when('/businesses/:businessId', {
+    templateUrl: 'views/pages/businessShow.html',
+    controller: 'photoCtrl'
   })
 
   $locationProvider.hashPrefix('!')

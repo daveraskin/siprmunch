@@ -4,7 +4,7 @@ siprmnchAngular.factory('yelpService', ['$http', function($http){
 
       search: function(term, callback){
         var self = this;
-        $http.post('/api/yelp/mistral')
+        $http.post('/api/yelp', {term: term})
         .success(function(data){
           self.result = data
           callback(null, data)

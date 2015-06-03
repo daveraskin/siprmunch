@@ -1,0 +1,66 @@
+<style>
+ body {
+    background: none;
+    background-color: black;
+  }
+
+  .background:before {
+    background: url({{businessData.data.image_url}});
+    content: "";
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    display: block;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    width: 100vw;
+    height: 100vh;
+
+    -webkit-filter: saturate(150%) blur(30px);
+    -moz-filter: saturate(150%) blur(30px);
+    -o-filter: saturate(150%) blur(30px);
+    -ms-filter: saturate(150%) blur(30px);
+    filter: saturate(150%) blur(30px);
+
+    /* IMPORTANT - FORCES HARDWARE ACCELERATION */
+    -webkit-transform: scale(1.2)  translate3d(0, 0, 0) ;
+    -moz-transform: scale(1.2)  translate3d(0, 0, 0) ;
+    -o-transform: scale(1.2)  translate3d(0, 0, 0) ;
+    -ms-transform: scale(1.2)  translate3d(0, 0, 0) ;
+    transform: scale(1.2)  translate3d(0, 0, 0) ;
+  }
+
+  .background {
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 0;
+  }
+
+</style>
+<div class="background">
+
+  <div layout="row" class="valign-wrapper">
+    <div flex="25">
+    </div>
+    <div flex="75">
+      <div class="container">
+        <div class="valign">
+        <md-card>
+             <md-card-content>
+                <p class="flow-text center-align">
+                  {{businessData.data.name}}
+                  <br>
+                  {{businessData.data.location.address[0]}}
+                  <br>
+                  <img src="{{businessData.data.image_url}}">
+                </p>
+             </md-card-content>
+          </md-card>
+        </div>
+      </div>
+    </div>
+  </div>
+ </div>

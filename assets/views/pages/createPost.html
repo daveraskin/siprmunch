@@ -1,0 +1,57 @@
+<div layout="column" class="center-align">
+  <h4>You're hungry or you're thirsty.</h4>
+  <h5>Or you're in the wrong place.</h5>
+</div>
+<div ng-controller="homeCtrl"layout-gt-sm="row" layout-sm="column">
+
+        <md-card id="createPostForm" flex="50" >
+            <md-card-header>
+              <p class="flow-text"> Create a Post </p>
+            </md-card-header>
+           <form ng-submit="createPost()">
+              <span>
+              <div layout-gt-sm="row" layout-sm="column">
+              <md-input-container>
+                <label> How many of you are there? </label>
+                <input ng-model="postData.currentAttending" required>
+              </md-input-container>
+              <md-input-container>
+                <label> Maximum Party Size </label>
+                <input ng-model="postData.maxAttending" required>
+              </md-input-container>
+                <md-select placeholder="Meetup Type" ng-model="postData.type">
+                  <md-option value="Coffee">Coffee</md-option>
+                  <md-option value="Drink">Drink</md-option>
+                  <md-option value="Bite">Bite</md-option>
+                  <md-option value="Meal">Meal</md-option>
+                </md-select>
+              </div>
+               <label>Location</label>
+              <md-autocomplete md-autoselect="true" md-selected-item="postData.location" md-search-text="yelpTerm"  md-items="result in yelpSearch(yelpTerm)" md-delay="250" md-no-cache="true" md-item-text="result.name">
+                  <span>{{result.name}} - {{result.location.address[0] || 'N/A'}}</span>
+              </md-autocomplete>
+
+              <md-input-container>
+                <label> Your post! </label>
+                <textarea ng-model="postData.body" required></textarea>
+              </md-input-container>
+              <md-button class="md-raised">Submit</md-button>
+        </form>
+
+      </md-card>
+
+      <md-card id="createPostPreview" flex="50">
+       <md-card-header>
+        <p class="flow-text">Your Post Preview:</p>
+       </md-card-header>
+       <md-card-content class="center-align">
+         <p ng-show="postData.currentAttending != null" class="flow-text"><span>{{postData.currentAttending || "__ "}}</span>/<span>{{postData.maxAttending || "__"}}</span><span ng-show="postData.type != null"> for a {{postData.type}} </span></p>
+         <p class="flow-text" ng-show="postData.location != null"> at </p>
+         <h4>{{postData.location.name}}</h4>
+         <p class="flow-text">{{postData.body}}</p>
+       </md-card-content>
+     </md-card>
+    </div>
+  </div>
+
+</div>

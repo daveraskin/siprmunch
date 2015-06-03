@@ -1,5 +1,46 @@
+/*global*/
 md-sidenav.md-locked-open{
   width: 270px;
   min-width: 270px;
   max-width: 270px;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+body{
+   background-color: #e8eaf6
+}
+h1,h2,h3,h4,h5,h6{
+  margin:0;
+  padding:0;
+}
+md-content.md-default-theme{
+  background-color: #e8eaf6   ;
+}
+p{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/*global form stuff*/
+label{
+  color: rgba(0,0,0,0.54);
+}
+md-input-container.md-default-theme label{
+  color: rgba(0,0,0,0.54);
+}
+/*Create a post*/
+#createPostForm{
+  padding:18px ;
+}
+#createPostPreview{
+  padding:18px ;
+  margin-right: 22px;
+}
+.md-input-container{
+  border:1px solid gray;
+}
+.md-select-label{
+  padding-bottom:2px;
+}
+.fa-2x{
+  margin-top: 14px;
 }

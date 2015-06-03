@@ -1,18 +1,23 @@
-<div layout="row"  ng-controller="sideNavCtrl">
+<div ng-controller="homeCtrl" layout="row"  ng-controller="sideNavCtrl">
       <md-sidenav md-component-id="left" class="md-sidenav-left blue darken-4">
         <md-list>
 
           </md-list>
       </md-sidenav>
 
-      <md-sidenav  class="blue darken-4" style="height:100vh" md-is-locked-open="$mdMedia('min-width: 775px')" class="md-sidenav-left">
-        <header class="nav-header" id="brandLogo">
+      <md-sidenav  class=" cyan darken-4" style="height:100vh" md-is-locked-open="$mdMedia('min-width: 775px')" class="md-sidenav-left">
+        <a href="#!/"><header class="nav-header" id="brandLogo">
           <h3>SIPRMNCH</h3>
           <md-divider></md-divider>
-        </header>
+        </header></a>
         <div id="sideNavBody">
           <md-list>
-             This is the sideNav content
+            <a href="#!/createPost"> <md-list-item class="md-2-line">
+              <div class="md-list-item-text">
+                <h3>Create a post</h3>
+                <p>You're feeling very, very hungry</p>
+              </div>
+             </md-list-item></a>
           </md-list>
         </div>
 
@@ -21,10 +26,10 @@
 
    <!--  </div> -->
   <div layout="column" layout-fill>
-  <md-toolbar class="blue darken-3">
+  <md-toolbar class=" blue-grey darken-4">
     <div class="md-toolbar-tools">
       <span>My App's Title</span>
-       <md-button ng-click="openLeftMenu()">
+       <md-button ng-show="$mdMedia('min-width: 775px')"ng-click="openLeftMenu()">
       Open Left Menu
     </md-button>
 
@@ -39,7 +44,9 @@
     </div>
   </md-toolbar>
     <md-content>
-      <div class="container">
+
+
+
 
           <!-- This is the main view window -->
 
@@ -47,7 +54,7 @@
 
          <!--  End main view window -->
 
-      </div>
+
     </md-content>
   </div>
 </div>

@@ -8,16 +8,30 @@
 module.exports = {
 
   attributes: {
-    title: {
-      type:"string",
-      required: true
-    },
     body: {
       type:"string",
       required: true
     },
     user: {
-      model: "User"
+      model: "UserInfo"
+    },
+    type: {
+      type:"string",
+      required: true
+    },
+    maxAttending: {
+      type: 'integer'
+    },
+    currentAttending: {
+      type: 'integer'
+    },
+    locationId: {
+      type: 'string',
+      required: true
+    },
+    locationName: {
+      type: 'string',
+      required: true
     }
 
   }

@@ -2,25 +2,30 @@ siprmnchAngular.factory('userService', ['$http', function($http){
 
   return {
 
-    check: function(callback){
+  //   check: function(callback){
 
-      var self = this;
+  //     var self = this;
 
-      $http.get('/authenticate')
-      .success(function(data){
-        if(data === true){
-          self.loggedIn = true;
-        }else{
-          self.loggedIn = false;
-        }
-        callback(null, data)
+  //     $http.get('/authenticate')
+  //     .success(function(data){
+  //       if(data.authenticated === true){
+  //         self.loggedIn = true;
+  //         $http.get('/userInfo/' + data.user)
+  //         self.data = {
+  //           loggedIn: true,
+  //           user
+  //         }
+  //       }else{
+  //         self.loggedIn = false;
+  //       }
+  //       callback(null, data)
 
-      })
-      .error(function(err){
-        callback(err);
-      })
+  //     })
+  //     .error(function(err){
+  //       callback(err);
+  //     })
 
-    }
+  //   }
 
   }
 

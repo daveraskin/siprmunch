@@ -1,0 +1,12 @@
+    <div class="form-group">
+        <file-field class="btn" ng-model="uploadFile" ng-class="{'btn-success':uploadFile}" preview="previewImage">Select File</file-field>
+    </div>
+
+        <br>
+        <button class="btn btn-primary" ng-click="doUpload()">Submit</button>
+    <div class="col-sm-4">
+        <h3>Preview</h3>
+        <img ng-src="{{previewImage}}" width="200">
+        <br>
+        {{uploadFile.name}}
+    </div>

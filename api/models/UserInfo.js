@@ -8,13 +8,10 @@
 module.exports = {
 
   attributes: {
-    userId: {
-      type: 'string',
-      required: true
-    },
     email: {
       type: 'email',
-      required: true
+      required: true,
+      unique: true
     },
     username: {
       type: 'string',
@@ -32,6 +29,17 @@ module.exports = {
       required: false,
       minLength: 2,
       maxLength: 20
+    },
+    posts: {
+      collection: 'Post',
+      via: 'user'
+    },
+    user: {
+      model: 'User'
+    },
+    pictures: {
+      collection: 'Picture',
+      via: 'userInfo'
     }
 
   }

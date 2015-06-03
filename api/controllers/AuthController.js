@@ -5,7 +5,21 @@
  * should look. It currently includes the minimum amount of functionality for
  * the basics of Passport.js to work.
  */
+
+// function viewback(err, data) {
+//     if(err) {
+//         console.log("Error: " + JSON.stringify(err));
+//     } else {
+//         console.log("Data: " + JSON.stringify(data));
+//     }
+// }
+
+var accessToken;
+var fbapi = require('facebook-api');
+
+
 var AuthController = {
+
   /**
    * Render the login page
    *
@@ -170,7 +184,21 @@ var AuthController = {
 
         // Upon successful login, send the user to the homepage were req.user
         // will be available.
-        res.send({success: true, user: req.user.id})
+         if(req.user.username === null){
+          Passport.findOne({user: req.user.id})
+          .then(function(data){
+            var client = fbapi.user(data.tokens.accessToken);
+            client.me.info(function(err, data){
+              UserInfo.findOrCreate({email: data.email}, {email: data.email, firstName: data.first_name, lastName: data.last_name, username: null, user: req.user.id})
+              .exec(function(data){
+                console.log(data)
+                res.redirect('/')
+              })
+            });
+          })
+        }else{
+          res.send({success: true, user: req.user.id})
+        }
       });
     });
   },

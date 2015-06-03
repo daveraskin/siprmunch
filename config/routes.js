@@ -45,7 +45,10 @@ module.exports.routes = {
   'get /auth/:provider/callback': 'AuthController.callback',
   'get /auth/:provider/:action': 'AuthController.callback',
 
-  'post /api/yelp/:searchTerm': 'PagesController.yelp'
+  'get /api/yelp/:searchTerm': 'PagesController.yelp',
+  'get /api/yelpBusiness/:searchTerm': 'PagesController.yelpBusiness',
+  'post /api/fileUpload': 'PictureController.upload',
+  'get /api/getUserInfo': 'UserController.getUserInfo'
 
   /***************************************************************************
   *                                                                          *

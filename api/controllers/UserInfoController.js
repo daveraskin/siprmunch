@@ -6,6 +6,10 @@
  */
 
 module.exports = {
-	
+
+  getUserInfo: function(req,res){
+
+    console.log( 'hello')
+  }
 };
 
