@@ -28,6 +28,10 @@ siprmnchAngular.config(['$routeProvider', '$locationProvider', function($routePr
     templateUrl: 'views/pages/businessShow.html',
     controller: 'photoCtrl'
   })
+  .when('/uploadImage/:businessId', {
+    templateUrl: 'views/pages/uploadImage.html',
+    controller: 'photoCtrl'
+  })
 
   $locationProvider.hashPrefix('!')
 

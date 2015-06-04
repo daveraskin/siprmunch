@@ -48,7 +48,10 @@ module.exports.routes = {
   'get /api/yelp/:searchTerm': 'PagesController.yelp',
   'get /api/yelpBusiness/:searchTerm': 'PagesController.yelpBusiness',
   'post /api/fileUpload': 'PictureController.upload',
-  'get /api/getUserInfo': 'UserController.getUserInfo'
+  'get /api/getUserInfo': 'UserController.getUserInfo',
+  'post /api/chat/join' : 'MessageController.join',
+  'post /api/chat/post' : 'MessageController.post',
+  'get /api/chat/leave' : 'MessageController.leave'
 
   /***************************************************************************
   *                                                                          *

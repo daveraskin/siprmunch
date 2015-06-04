@@ -1,28 +1,28 @@
 <div class="container" ng-controller="homeCtrl">
 
-  <div layout="column">
-    <md-card class="center-align" ng-repeat="post in posts">
+  <div id="postColumn" layout="column">
+    <md-card class="center-align" ng-repeat="post in posts | orderBy : 'createdAt' : true">
       <div layout="row">
         <div flex="80">
          <md-card-content>
          <p class="flow-text">{{post.user.username || post.user.firstName +" "+ post.user.lastName}}</p>
            <p class="flow-text"><span>Only {{post.maxAttending - post.currentAttending}} spot{{(post.maxAttending - post.currentAttending) > 1 ? 's' : ''}} left</span><span> for a {{post.type}} </span>
-           <br>
-           @
-           </p>
+            </p>
+           <img class="avatar"src="http://res.cloudinary.com/htg59sxwt/image/upload/w_90,h_90,c_thumb,g_faces,r_max/ha5fyhnsthrzrvof0uf9.png">
+
 
            <h4><a href="#!/businesses/{{post.locationId}}">{{post.locationName}}</a></h4>
-           <p class="flow-text">{{post.body}}</p>
+           <p class="flow-text">"{{post.body}}"</p>
          </md-card-content>
         </div>
         <div flex="20" class="valign-wrapper">
           <div class="valign">
 
-            <md-button class="md-fab orange"><i class="fa fa-comments-o fa-2x"></i></md-button>
+            <md-button ng-click="joinChat(post.id, $event)" class="md-fab orange"><i class="fa fa-comments-o fa-2x"></i></md-button>
             <br>
-            <md-button class="md-fab teal"><i class="fa fa-cutlery fa-2x"></i></md-button>
+            <md-button ng-click="rsvp(post.id)" class="md-fab teal"><i class="fa fa-cutlery fa-2x"></i></md-button>
             <br>
-            <md-button class="md-fab blue"><i class="fa fa-camera-retro fa-2x"></i></md-button>
+            <md-button href="#!/uploadImage/{{post.locationId}}" class="md-fab blue"><i class="fa fa-camera-retro fa-2x"></i></md-button>
           </div>
         </div>
       </div>

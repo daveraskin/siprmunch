@@ -2,12 +2,15 @@
  body {
     background: none;
     background-color: black;
+    overflow: scroll;
   }
+  #scrollContainer{
 
+  }
   .background:before {
     background: url({{businessData.data.image_url}});
     content: "";
-    position: fixed;
+    position: absolute;
     left: 0;
     right: 0;
     z-index: -1;
@@ -18,11 +21,11 @@
     width: 100vw;
     height: 100vh;
 
-    -webkit-filter: saturate(150%) blur(30px);
-    -moz-filter: saturate(150%) blur(30px);
-    -o-filter: saturate(150%) blur(30px);
-    -ms-filter: saturate(150%) blur(30px);
-    filter: saturate(150%) blur(30px);
+    -webkit-filter: saturate(150%) blur(22px);
+    -moz-filter: saturate(150%) blur(22px);
+    -o-filter: saturate(150%) blur(22px);
+    -ms-filter: saturate(150%) blur(22px);
+    filter: saturate(150%) blur(22px);
 
     /* IMPORTANT - FORCES HARDWARE ACCELERATION */
     -webkit-transform: scale(1.2)  translate3d(0, 0, 0) ;
@@ -43,13 +46,14 @@
 <div class="background">
 
   <div layout="row" class="valign-wrapper">
-    <div flex="25">
+    <div flex-gt-sm="25"  flex-sm="0">
     </div>
-    <div flex="75">
-      <div class="container">
+    <div id="businessCard" flex-gt-sm="75" flex-sm="100">
+      <div id="scrollContainer" class="container">
         <div class="valign">
         <md-card>
-             <md-card-content>
+             <md-card-content layout="row">
+              <div flex="80">
                 <p class="flow-text center-align">
                   {{businessData.data.name}}
                   <br>
@@ -57,7 +61,32 @@
                   <br>
                   <img src="{{businessData.data.image_url}}">
                 </p>
+              </div>
+              <div flex="20">
+                <div class="form-group">
+                  <file-field class="btn teal" ng-model="uploadFile" ng-class="{'btn-success':uploadFile}" preview="previewImage">Select File</file-field>
+                </div>
+                <br>
+                <button class="btn teal" ng-click="doUpload()">Submit</button>
+              </div>
              </md-card-content>
+          </md-card>
+          <md-card>
+            <md-card-content>
+                    <div class="form-group">
+        <file-field class="btn" ng-model="uploadFile" ng-class="{'btn-success':uploadFile}" preview="previewImage">Select File</file-field>
+    </div>
+
+
+        <button class="btn btn-primary" ng-click="doUpload()">Submit</button>
+    <div class="col-sm-4">
+        <h3>Preview</h3>
+        <img ng-src="{{previewImage}}" width="200">
+        <br>
+        {{uploadFile.name}}
+    </div>
+
+            </md-card-content>
           </md-card>
         </div>
       </div>

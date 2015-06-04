@@ -1,0 +1,27 @@
+
+<md-dialog>
+  <md-dialog-content layout-gt-sm="row" layout-sm="column">
+    <div id="chatBox" flex-xs="100" flex-gt-sm="50" style="border:1px solid rgba(0,0,0,.2)">
+      This is the Chatroom for {{postId}}!
+
+      <form ng-submit="postMessage()">
+        <md-input-container>
+          <label> Your message </label>
+          <textarea ng-model="messageBody"></textarea>
+        </md-input-container>
+        <md-button class="md-raised">Send</md-button>
+        <md-button class="md-raised" type="button" ng-click="closeDialog()">Close</md-button>
+      </form>
+    </div>
+    <div  flex-xs="100" id="chatWindow" flex-get-sm="50" style="border:1px solid rgba(0,0,0,.2)">
+      <md-list id="chatList">
+         <md-list-item class="md-2-line" ng-repeat="message in chatLog">
+            <div class="md-list-item-text">
+              <h3>{{message.user.firstName}} {{message.user.lastName}}</h3>
+              <p>{{message.body || message.msg}}</p>
+            </div>
+        </md-list-item>
+      </md-list>
+    </div>
+  </md-dialog-content>
+</md-dialog>

@@ -1,6 +1,27 @@
-siprmnchAngular.controller('homeCtrl', ['$scope', '$http', 'userService', 'yelpService','$q', '$location', function($scope, $http, userService, yelpService, $q, $location){
+siprmnchAngular.controller('homeCtrl', ['$scope', '$http','$q', '$location', '$mdMedia', '$mdSidenav', '$mdBottomSheet', '$mdDialog', '$mdToast', function($scope, $http, $q, $location, $mdMedia, $mdSidenav, $mdBottomSheet, $mdDialog, $mdToast){
   console.log('home CTrl loaded')
-
+  $scope.isChecked = {
+    coffee: true,
+    drink: true,
+    bite: true,
+    meal: true,
+  }
+  $scope.changeCheck = function(type){
+    switch(type){
+      case 'coffee':
+        !$scope.isChecked.coffee
+        break;
+      case 'drink':
+        !$scope.isChecked.drink
+        break;
+      case 'bite':
+        !$scope.isChecked.bite
+        break;
+      case 'meal':
+        !$scope.isChecked.meal
+        break;
+    }
+  }
   $scope.posts;
   $scope.yelpTerm;
   $scope.postData = {
@@ -19,6 +40,30 @@ siprmnchAngular.controller('homeCtrl', ['$scope', '$http', 'userService', 'yelpS
     username: null
   }
   $scope.loggedIn;
+  $scope.isBig;
+
+  $scope.openLeftMenu = function() {
+    $mdSidenav('left').toggle();
+  };
+
+  $scope.openBottomSheet = function(view) {
+    if(view === 'login'){
+      $mdBottomSheet.show({
+        templateUrl: 'views/auth/login.html',
+        controller: 'authCtrl'
+      });
+    }else if(view === 'createPost'){
+      $mdBottomSheet.show({
+        templateUrl:'views/pages/createPostBottomSheet.html',
+        controller: 'homeCtrl'
+      })
+    }else{
+      $mdBottomSheet.show({
+        template: '<md-bottom-sheet>Hello, world!</md-bottom-sheet>'
+      })
+    }
+
+  };
 
 
   $scope.isLoggedIn = function(){
@@ -33,6 +78,9 @@ siprmnchAngular.controller('homeCtrl', ['$scope', '$http', 'userService', 'yelpS
   }
   $scope.isLoggedIn();
 
+ $scope.$watch(function() { return $mdMedia('gt-sm'); }, function(small) {
+    $scope.smallScreen = small;
+  });
 
 // Load posts
   $scope.loadPosts = function(){
@@ -75,6 +123,7 @@ siprmnchAngular.controller('homeCtrl', ['$scope', '$http', 'userService', 'yelpS
       $http.post('/api/userInfo/'+userInfoId+'/posts', {body: $scope.postData.body, locationName: $scope.postData.location.name, locationId: $scope.postData.location.id, type: $scope.postData.type, currentAttending: currentAttending, maxAttending: maxAttending})
       .success(function(data){
       console.log(data)
+      $mdBottomSheet.hide()
       $location.path('/')
       })
       .error(function(error){
@@ -101,24 +150,59 @@ siprmnchAngular.controller('homeCtrl', ['$scope', '$http', 'userService', 'yelpS
 
 // file load
 
- $scope.doUpload = function(){
+//chat initialization
+$scope.joinChat = function(postId, ev){
+  var info = postId
+  io.socket.post('/api/chat/join', {postId: info}, function(data){
+    console.log('made it this far', data)
+    var chatLog = data
+      $mdDialog.show({
+        templateUrl: 'views/pages/chatRoom.html',
+        controller: 'chatCtrl',
+        locals: {postId: info, chatLog: chatLog},
+        clickOutsideToClose: true,
+        escapeToClose: true
+      })
+      .then(function(){
+        console.log('hello!...right?')
+      },function(){
+        console.log('goodbye!')
+      });
 
-        console.log('title',$scope.title);
-        console.log('uploadFile',$scope.uploadFile);
-        var fd = new FormData();
-        fd.append('newPicture', $scope.uploadFile);
 
-        $http.post('/api/fileUpload', fd, {
-            transformRequest: angular.identity,
-            headers: {'Content-Type': undefined}
+  })
+};
+
+$scope.rsvp = function(postId){
+  $http.get('/api/post/'+postId)
+  .success(function(data){
+    if(data.currentAttending < data.maxAttending){
+      $http.get('/authenticate')
+      .success(function(userData){
+        if(userData.userInfo.attending != null){
+          $mdToast.show($mdToast.simple().content("RSVP Unsuccessful. You may only be attending one event at a time."))
+        }else{
+          $http.put('/api/userInfo/'+userData.userInfo.id, {attending: postId})
+          .success(function(updatedUserData){
+          var newAttendance = data.currentAttending + 1;
+          newAttendance = parseInt(newAttendance);
+          console.log('newAttendance', newAttendance)
+          $http.put('/api/post/'+postId, {currentAttending: newAttendance})
+          .success(function(updatedPostData){
+            $mdToast.show($mdToast.simple().content("RSVP Successful!"));
+            $scope.loadPosts()
+            console.log(updatedPostData)
         })
-        .success(function(data){
-            console.log(data);
-        })
-        .error(function(err){
-            alert('there was an error uploading the file.');
-            console.log(err);
-        });
+          })
+
+      }
+      })
+    }else{
+      $mdToast.show($mdToast.simple().content("RSVP Unsuccessful. This group must be full!"))
     }
+  })
+
+}
+
 
 }])

@@ -13,16 +13,13 @@ module.exports = {
     console.log('made it this far ')
     req.file('newPicture').upload(function(err,files){
     cloudinary.uploader.upload(files[0].fd,function(result){
+      console.log(result)
     newFile = result;
-    Picture.create({hash: newFile.public_id, user: '22jij3oijoij', post: 'oaisjfeo'})
-    .exec(function(err, data) {
-      if(err) res.send(err);
-      res.send(data)
+    res.send(result)
     })
-
   })
-});
+ }
 }
 
-}
+
 

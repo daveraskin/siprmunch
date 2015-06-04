@@ -32,6 +32,10 @@ module.exports = {
     locationName: {
       type: 'string',
       required: true
+    },
+    messages: {
+      collection: 'Message',
+      via: 'post'
     }
 
   }

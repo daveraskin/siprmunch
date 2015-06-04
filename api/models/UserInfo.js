@@ -40,8 +40,14 @@ module.exports = {
     pictures: {
       collection: 'Picture',
       via: 'userInfo'
+    },
+    messages: {
+      collection: 'Message',
+      via: 'user'
+    },
+    attending: {
+      type: 'string'
     }
-
   }
 };
 

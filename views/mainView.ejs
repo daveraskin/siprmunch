@@ -1,23 +1,111 @@
-<div ng-controller="homeCtrl" layout="row"  ng-controller="sideNavCtrl">
-      <md-sidenav md-component-id="left" class="md-sidenav-left blue darken-4">
-        <md-list>
+ <div ng-controller="homeCtrl">
+  <md-toolbar class="grey darken-4">
+    <div class="md-toolbar-tools">
+      <a href="#!/" id="siprmnch"><code>s&iuml;prmunch</code></a>
+       <md-button ng-show="!smallScreen" ng-click="openLeftMenu()">
+      Open Left Menu
+      </md-button>
 
+      <!-- fill up the space between left and right area -->
+      <span flex></span>
+      <md-button ng-click="openBottomSheet('login')" ng-hide="loggedIn">
+        Log In
+      </md-button>
+      <md-button href="/logout" ng-show="loggedIn">
+        Log Out
+      </md-button>
+    </div>
+  </md-toolbar>
+<div layout="row"  ng-controller="sideNavCtrl">
+      <md-sidenav md-component-id="left" style="z-index:251"class="md-sidenav-left grey darken-4">
+        <div id="sideNavBody">
+          <md-list>
+            <a href='#' ng-click="openBottomSheet('createPost')" > <md-list-item class="md-2-line grey darken-4">
+              <div class="md-list-item-text">
+                <h3>Create a post</h3>
+                <p>You're so, so hungry.</p>
+              </div>
+             </md-list-item></a>
+             <md-list-item class="md-2-line grey darken-2">
+             <md-checkbox ng-model="isChecked.coffee" ng-click="changeCheck('coffee')"></md-checkbox>
+               <div class="md-list-item-text">
+                  <h3>Coffee</h3>
+                 <p>buzz buzz buzz buzz buzz</p>
+               </div>
+             </md-list-item>
+             <md-list-item class="md-2-line grey darken-2">
+             <md-checkbox ng-model="isChecked.drink" ng-click="changeCheck('drink')"></md-checkbox>
+               <div class="md-list-item-text">
+                  <h3>Drinks</h3>
+                 <p>glug glug glug glug glug</p>
+               </div>
+             </md-list-item>
+             <md-list-item class="md-2-line grey darken-2">
+             <md-checkbox ng-model="isChecked.bite" ng-click="changeCheck('bite')"></md-checkbox>
+               <div class="md-list-item-text">
+                  <h3>Bites</h3>
+                 <p ng-class="isChecked.bite">chomp chomp chomp</p>
+               </div>
+             </md-list-item>
+             <md-list-item class="md-2-line grey darken-2">
+             <md-checkbox ng-model="isChecked.meal" ng-click="changeCheck('meal')"></md-checkbox>
+               <div class="md-list-item-text">
+                  <h3>Meals</h3>
+                 <p>nom nom nom nom nom</p>
+               </div>
+             </md-list-item>
+             <a href="#">
+               <md-list-item class="md-2-line grey darken-2">
+                <div class="md-list-item-text">
+                  <h3>Log Out</h3>
+                </div>
+               </md-list-item>
+             </a>
           </md-list>
+        </div>
       </md-sidenav>
 
-      <md-sidenav  class=" cyan darken-4" style="height:100vh" md-is-locked-open="$mdMedia('min-width: 775px')" class="md-sidenav-left">
+      <md-sidenav  class="grey darken-4" style="height:100vh" md-is-locked-open="$mdMedia('gt-sm')" class="md-sidenav-left">
         <a href="#!/"><header class="nav-header" id="brandLogo">
-          <h3>SIPRMNCH</h3>
+
           <md-divider></md-divider>
         </header></a>
         <div id="sideNavBody">
           <md-list>
-            <a href="#!/createPost"> <md-list-item class="md-2-line">
+            <a href='#' ng-click="openBottomSheet('createPost')" > <md-list-item class="md-2-line grey darken-4">
               <div class="md-list-item-text">
                 <h3>Create a post</h3>
-                <p>You're feeling very, very hungry</p>
+                <p>You're so, so hungry.</p>
               </div>
              </md-list-item></a>
+             <md-list-item class="md-2-line grey darken-2">
+             <md-checkbox ng-model="isChecked.coffee" ng-click="changeCheck('coffee')"></md-checkbox>
+               <div class="md-list-item-text">
+                  <h3>Coffee</h3>
+                 <p>buzz buzz buzz buzz buzz</p>
+               </div>
+             </md-list-item>
+             <md-list-item class="md-2-line grey darken-2">
+             <md-checkbox ng-model="isChecked.drink" ng-click="changeCheck('drink')"></md-checkbox>
+               <div class="md-list-item-text">
+                  <h3>Drinks</h3>
+                 <p>glug glug glug glug glug</p>
+               </div>
+             </md-list-item>
+             <md-list-item class="md-2-line grey darken-2">
+             <md-checkbox ng-model="isChecked.bite" ng-click="changeCheck('bite')"></md-checkbox>
+               <div class="md-list-item-text">
+                  <h3>Bites</h3>
+                 <p>chomp chomp chomp</p>
+               </div>
+             </md-list-item>
+             <md-list-item class="md-2-line grey darken-2">
+             <md-checkbox ng-model="isChecked.meal" ng-click="changeCheck('meal')"></md-checkbox>
+               <div class="md-list-item-text">
+                  <h3>Meals</h3>
+                 <p>nom nom nom nom nom</p>
+               </div>
+             </md-list-item>
           </md-list>
         </div>
 
@@ -26,35 +114,25 @@
 
    <!--  </div> -->
   <div layout="column" layout-fill>
-  <md-toolbar class=" blue-grey darken-4">
-    <div class="md-toolbar-tools">
-      <span>My App's Title</span>
-       <md-button ng-show="$mdMedia('min-width: 775px')"ng-click="openLeftMenu()">
-      Open Left Menu
-    </md-button>
 
-      <!-- fill up the space between left and right area -->
-      <span flex></span>
-      <md-button href="/#!/login" ng-hide="loggedIn">
-        Log In
-      </md-button>
-      <md-button href="/logout" ng-show="loggedIn">
-        Log Out
-      </md-button>
-    </div>
-  </md-toolbar>
     <md-content>
 
 
 
 
           <!-- This is the main view window -->
-
+    <div layout="row">
+    <div flex-xs="0" flex-gt-sm="30" flex-gt-md="20">
+    </div>
+    <div flex-xs="100" flex-gt-sm="70" flex-gt-md="80">
        <ng-view></ng-view>
+    </div>
+    </div>
 
          <!--  End main view window -->
 
 
     </md-content>
   </div>
+</div>
 </div>

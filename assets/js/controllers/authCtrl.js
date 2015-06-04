@@ -1,4 +1,4 @@
-siprmnchAngular.controller('authCtrl', ['$scope', '$http', '$location', 'userInfo', function($scope, $http, $location, userInfo){
+siprmnchAngular.controller('authCtrl', ['$scope', '$http', '$location', 'userInfo', '$mdBottomSheet', function($scope, $http, $location, userInfo, $mdBottomSheet){
 
 
   console.log('authCtrl loaded');
@@ -17,6 +17,7 @@ siprmnchAngular.controller('authCtrl', ['$scope', '$http', '$location', 'userInf
       .success(function(data){
         if(data.success === true){
            $scope.error = false;
+           $mdBottomSheet.hide()
            $location.path('/')
          }else{
           $scope.error = true;
@@ -31,7 +32,7 @@ siprmnchAngular.controller('authCtrl', ['$scope', '$http', '$location', 'userInf
       }
      };
   $scope.register = function(){
-    $http.post('/auth/local/register', {username: $scope.formData.username, email: $scope.formData.email, password: $scope.formData.password})
+    $http.post('/auth/local/register', {username: $scope.formData.username, email: $scope.formData.email, password: $scope.formData.password, attending: null})
     .success(function(data){
       if(data.success === true){
         $http.post('/api/userInfo', {
