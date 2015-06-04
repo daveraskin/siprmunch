@@ -14,6 +14,8 @@
  * http://passportjs.org/guide/providers/
  */
 
+ var host = process.env.NODE_ENV == 'production' ? 'siprmunch.herokuapp.com' : 'localhost:1337';
+
 module.exports.passport = {
   local: {
     strategy: require('passport-local').Strategy
@@ -50,6 +52,7 @@ module.exports.passport = {
     options: {
       clientID: process.env.FACEBOOK_APP_ID,
       clientSecret: process.env.FACEBOOK_SECRET,
+      callbackURL: "http://" + host + "/auth/facebook/callback",
       scope: ['email'] /* email is necessary for login behavior */
     }
   },
