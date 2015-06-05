@@ -1,6 +1,7 @@
 <div style="margin-top: 90px" class="container">
   <md-card>
     <md-card-content>
+      <p class="flow-text center-align">Register for S&iuml;prmunch</p>
       <form role="form" ng-submit="register()">
           <md-input-container>
             <label>Username</label>
@@ -23,13 +24,10 @@
               <input name="lastName" ng-model="formData.lastName">
           </md-input-container>
 
-          <div class="form-group">
-              <file-field class="btn" ng-model="uploadFile" ng-class="{'btn-success':uploadFile}" preview="previewImage">Select File</file-field>
-               {{uploadFile.name}}
-          </div>
           <md-button> submit </md-button>
+            </form>
+
         </md-card-content>
       </md-card>
-      </form>
 
 </div>

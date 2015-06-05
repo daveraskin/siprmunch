@@ -17,8 +17,20 @@ module.exports = {
 
     },
     post: function(req,res){
-      sails.sockets.broadcast(req.body.post, 'addchat', {msg: req.body.body, user: req.body.user})
-      res.send({result:true})
+      var postData = req.body
+      Message.create(postData)
+      .then(function(data){
+        UserInfo.findOne({id: data.user})
+        .then(function(userData){
+          data.user = userData
+          console.log("messagecreated:", data)
+          console.log("userData", userData)
+          sails.sockets.broadcast(req.body.post, 'addchat', data)
+          res.send({result:true})
+      })
+      })
+
+
       // broadcast
     },
     leave: function(req,res){

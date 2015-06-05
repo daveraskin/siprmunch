@@ -13,10 +13,29 @@ width:100%;
 height: 300px;
 overflow:scroll;
 }
+.photoView{
+  height:250px;
+  max-height:250px;
+  min-height:250px;
+  overflow: scroll !important;
+  display: inline-block;
+  white-space: nowrap;
+  overflow-y: hidden;
+  width: 100%;
+  max-width:100%;
+  min-width:100%;
+}
 #chatList{
   width: 100%;
-  overflow:scroll;
+  overflow: scroll;
   height: 300px;
+}
+.businessPhoto{
+  display: inline-block;
+  margin-right:8px;
+}
+.businessPhoto:last-child{
+  margin-right:0;
 }
 md-checkbox .md-container:before{
   background-color: rgb(33,33,33);

@@ -3,7 +3,6 @@
   <md-dialog-content layout-gt-sm="row" layout-sm="column">
     <div id="chatBox" flex-xs="100" flex-gt-sm="50" style="border:1px solid rgba(0,0,0,.2)">
       This is the Chatroom for {{postId}}!
-
       <form ng-submit="postMessage()">
         <md-input-container>
           <label> Your message </label>
@@ -15,10 +14,10 @@
     </div>
     <div  flex-xs="100" id="chatWindow" flex-get-sm="50" style="border:1px solid rgba(0,0,0,.2)">
       <md-list id="chatList">
-         <md-list-item class="md-2-line" ng-repeat="message in chatLog">
+         <md-list-item class="md-2-line" ng-repeat="message in chatLog.data track by message.id">
             <div class="md-list-item-text">
               <h3>{{message.user.firstName}} {{message.user.lastName}}</h3>
-              <p>{{message.body || message.msg}}</p>
+              <p>{{message.body}}</p>
             </div>
         </md-list-item>
       </md-list>

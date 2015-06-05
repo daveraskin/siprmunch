@@ -189,7 +189,7 @@ var AuthController = {
           .then(function(data){
             var client = fbapi.user(data.tokens.accessToken);
             client.me.info(function(err, data){
-              UserInfo.findOrCreate({email: data.email}, {email: data.email, firstName: data.first_name, lastName: data.last_name, username: null, user: req.user.id, attending: null})
+              UserInfo.findOrCreate({email: data.email}, {email: data.email, firstName: data.first_name, lastName: data.last_name, username: null, user: req.user.id, attending: null, profPic: 'tcw4zivjx6th0s97hnmo'})
               .exec(function(data){
                 console.log(data)
                 res.redirect('/')

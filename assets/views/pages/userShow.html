@@ -1,0 +1,15 @@
+<md-dialog>
+    <md-card>
+      <md-card-content>
+          <p class="flow-text">Who's going?</p>
+          <md-list>
+            <md-list-item  class="md-2-line" ng-repeat="user in users">
+              <div class="md-list-item-text">
+                    <h3>{{user.firstName + " " + user.lastName}} {{user.id === creator ? " + " + guests : ""  }}</h3>
+                    <p>{{user.id === creator ? "Creator" : ""  }}
+                  </div>
+            </md-list-item>
+          </md-list>
+        </md-card-content>
+      </md-card>
+</md-dialog>

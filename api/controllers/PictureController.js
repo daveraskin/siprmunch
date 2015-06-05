@@ -18,7 +18,13 @@ module.exports = {
     res.send(result)
     })
   })
- }
+ },
+  get: function(req,res){
+    Picture.find({business: req.body.businessId})
+    .then(function(data){
+      res.send(data)
+    })
+  }
 }
 
 

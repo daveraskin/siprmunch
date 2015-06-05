@@ -51,7 +51,8 @@ module.exports.routes = {
   'get /api/getUserInfo': 'UserController.getUserInfo',
   'post /api/chat/join' : 'MessageController.join',
   'post /api/chat/post' : 'MessageController.post',
-  'get /api/chat/leave' : 'MessageController.leave'
+  'get /api/chat/leave' : 'MessageController.leave',
+  'post /api/getPhotos'  : 'PictureController.get'
 
   /***************************************************************************
   *                                                                          *

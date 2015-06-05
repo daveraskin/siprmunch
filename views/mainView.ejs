@@ -20,7 +20,7 @@
       <md-sidenav md-component-id="left" style="z-index:251"class="md-sidenav-left grey darken-4">
         <div id="sideNavBody">
           <md-list>
-            <a href='#' ng-click="openBottomSheet('createPost')" > <md-list-item class="md-2-line grey darken-4">
+            <a href='#!/createPost' > <md-list-item class="md-2-line grey darken-4">
               <div class="md-list-item-text">
                 <h3>Create a post</h3>
                 <p>You're so, so hungry.</p>
@@ -54,6 +54,13 @@
                  <p>nom nom nom nom nom</p>
                </div>
              </md-list-item>
+             <a href="#">
+               <md-list-item ng-show="loggedIn" class="md-2-line grey darken-2">
+                <div class="md-list-item-text">
+                  <h3>Update Profile</h3>
+                </div>
+               </md-list-item>
+             </a>
              <a href="#">
                <md-list-item class="md-2-line grey darken-2">
                 <div class="md-list-item-text">
@@ -107,6 +114,13 @@
                </div>
              </md-list-item>
           </md-list>
+           <a href="#!/updateProfile">
+               <md-list-item ng-show="loggedIn" class="md-2-line grey darken-4">
+                <div class="md-list-item-text">
+                  <h3 style="color:orange">Update Profile</h3>
+                </div>
+               </md-list-item>
+             </a>
         </div>
 
       </md-sidenav>

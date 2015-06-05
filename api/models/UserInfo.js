@@ -47,6 +47,9 @@ module.exports = {
     },
     attending: {
       type: 'string'
+    },
+    profPic: {
+      type: 'string'
     }
   }
 };

@@ -1,14 +1,21 @@
 <div class="container">
-    <div class="form-group">
-        <file-field class="btn" ng-model="uploadFile" ng-class="{'btn-success':uploadFile}" preview="previewImage">Select File</file-field>
-    </div>
+    <md-card style="margin-top: 90px">
+      <md-card-content layout="column">
+          <div class="container">
+                <p class="flow-text">Upload a photo you took at {{businessData.data.name}}.</p>
 
-        <br>
-        <button class="btn btn-primary" ng-click="doUpload()">Submit</button>
-    <div class="col-sm-4">
-        <h3>Preview</h3>
-        <img ng-src="{{previewImage}}" width="200">
-        <br>
-        {{uploadFile.name}}
-    </div>
+          </div>
+          <div class="container">
+                <div class="form-group">
+                  <file-field class="btn teal" ng-model="uploadFile" ng-class="{'btn-success':uploadFile}" preview="previewImage">Select File</file-field>
+                </div>
+                <br>
+                <button class="btn teal" ng-click="doUpload(false)">Submit</button>
+              <p class="flow-text" ng-if="previewImage">Image Preview</p>
+             <img ng-src="{{previewImage}}" width="200">
+            <br>
+                {{uploadFile.name}}
+                </div>
+      </md-card-content>
+    </md-card>
 </div>

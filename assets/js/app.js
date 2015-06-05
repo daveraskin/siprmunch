@@ -32,6 +32,14 @@ siprmnchAngular.config(['$routeProvider', '$locationProvider', function($routePr
     templateUrl: 'views/pages/uploadImage.html',
     controller: 'photoCtrl'
   })
+  .when('/updateProfile', {
+    templateUrl: 'views/pages/updateProfile.html',
+    controller: 'photoCtrl'
+  })
+  .when('/newProfPic', {
+    templateUrl: 'views/pages/newProfPic.html',
+    controller: 'photoCtrl'
+  })
 
   $locationProvider.hashPrefix('!')
 

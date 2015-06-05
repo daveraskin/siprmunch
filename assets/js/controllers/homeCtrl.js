@@ -1,4 +1,4 @@
-siprmnchAngular.controller('homeCtrl', ['$scope', '$http','$q', '$location', '$mdMedia', '$mdSidenav', '$mdBottomSheet', '$mdDialog', '$mdToast', function($scope, $http, $q, $location, $mdMedia, $mdSidenav, $mdBottomSheet, $mdDialog, $mdToast){
+siprmnchAngular.controller('homeCtrl', ['$scope', '$http','$q', '$location', '$mdMedia', '$mdSidenav', '$mdBottomSheet', '$mdDialog', '$mdToast', '$rootScope',  function($scope, $http, $q, $location, $mdMedia, $mdSidenav, $mdBottomSheet, $mdDialog, $mdToast, $rootScope){
   console.log('home CTrl loaded')
   $scope.isChecked = {
     coffee: true,
@@ -6,6 +6,17 @@ siprmnchAngular.controller('homeCtrl', ['$scope', '$http','$q', '$location', '$m
     bite: true,
     meal: true,
   }
+  $scope.buttonClass = function(){
+    if($mdMedia('sm')){
+      return 'md-mini'
+    }
+  }
+  $scope.glyphClass = function(){
+    if($mdMedia('gt-sm')){
+      return 'fa-2x'
+    }
+  }
+
   $scope.changeCheck = function(type){
     switch(type){
       case 'coffee':
@@ -39,12 +50,23 @@ siprmnchAngular.controller('homeCtrl', ['$scope', '$http','$q', '$location', '$m
     avatar: null,
     username: null
   }
-  $scope.loggedIn;
+
   $scope.isBig;
+
+
 
   $scope.openLeftMenu = function() {
     $mdSidenav('left').toggle();
   };
+
+  $scope.hasRSVPed = function(postId) {
+    if($scope.userInfo){
+      return $scope.userInfo.attending === postId ? true : false
+    }else{
+      return false
+    }
+
+  }
 
   $scope.openBottomSheet = function(view) {
     if(view === 'login'){
@@ -65,14 +87,35 @@ siprmnchAngular.controller('homeCtrl', ['$scope', '$http','$q', '$location', '$m
 
   };
 
+  $scope.userShow = function(postId){
+    var users = [];
+    $http.get('/api/userInfo')
+    .success(function(data){
+      for(var i=0; i < data.length; i++){
+        if(data[i].attending === postId){
+          users.push(data[i])
+        }
+      }
+      $mdDialog.show({
+        templateUrl: 'views/pages/userShow.html',
+        controller: 'userShowCtrl',
+        locals: {users: users, post: postId},
+        clickOutsideToClose: true,
+        escapeToClose: true
+      })
+    })
+  }
+
+
 
   $scope.isLoggedIn = function(){
     $http.get('/authenticate')
     .success(function(data){
       if(data.authenticated === true){
-        $scope.loggedIn = true
+        $rootScope.loggedIn = true
+        $scope.userInfo = data.userInfo
       }else{
-        $scope.loggedIn = false
+        $rootScope.loggedIn = false
       }
     })
   }
@@ -97,6 +140,7 @@ siprmnchAngular.controller('homeCtrl', ['$scope', '$http','$q', '$location', '$m
   io.socket.on('post', function(msg){
     if(msg && msg.verb){
           $scope.$evalAsync(function(){
+            console.log('msg.data', msg.data)
             $scope.posts.push(msg.data)
           });
         }
@@ -115,21 +159,31 @@ siprmnchAngular.controller('homeCtrl', ['$scope', '$http','$q', '$location', '$m
     var userId;
     $http.get('/authenticate')
     .success(function(data){
-      userId = data.user;
+      if(data.userInfo.attending === null){
+        userId = data.user;
       userInfoId = data.userInfo.id;
       console.log('location', $scope.postData.location)
       var currentAttending = parseInt($scope.postData.currentAttending);
       var maxAttending = parseInt($scope.postData.maxAttending);
       $http.post('/api/userInfo/'+userInfoId+'/posts', {body: $scope.postData.body, locationName: $scope.postData.location.name, locationId: $scope.postData.location.id, type: $scope.postData.type, currentAttending: currentAttending, maxAttending: maxAttending})
-      .success(function(data){
-      console.log(data)
-      $mdBottomSheet.hide()
-      $location.path('/')
-      })
-      .error(function(error){
+      .success(function(postData){
+        console.log('postDAta', postData)
+        $http.put('/api/userInfo/'+userInfoId, {attending: postData.posts[postData.posts.length - 1].id})
+        .success(function(attendingData){
+          console.log(data)
+          $mdBottomSheet.hide()
+          $location.path('/')
+        })
+        .error(function(error){
         console.log(error)
         alert(error)
       })
+      })
+      }else{
+        $mdToast.show($mdToast.simple().content("No one likes a flake: You cannot create an event if you're already schedule to attend one!"));
+      }
+
+
     })
   }
 //
@@ -151,7 +205,7 @@ siprmnchAngular.controller('homeCtrl', ['$scope', '$http','$q', '$location', '$m
 // file load
 
 //chat initialization
-$scope.joinChat = function(postId, ev){
+$scope.joinChat = function(postId){
   var info = postId
   io.socket.post('/api/chat/join', {postId: info}, function(data){
     console.log('made it this far', data)
@@ -190,6 +244,7 @@ $scope.rsvp = function(postId){
           $http.put('/api/post/'+postId, {currentAttending: newAttendance})
           .success(function(updatedPostData){
             $mdToast.show($mdToast.simple().content("RSVP Successful!"));
+            $scope.hasRSVPed(postId)
             $scope.loadPosts()
             console.log(updatedPostData)
         })

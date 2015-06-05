@@ -3,22 +3,28 @@
  you fucked up
 </div>
 <div class="container">
-  <form role="form" ng-submit="logIn(null, identifier, password)">
-    <md-input-container>
-      <label>Username or Email</label>
-        <input name="Username or Email" ng-model="identifier" required>
-    </md-input-container>
-    <md-input-container>
-      <label>Password</label required>
-        <input type="password" name="password" ng-model="password">
-    </md-input-container>
-    <md-button> Submit </md-button>
-  </form>
-  or login with facebook!
-  <md-button ng-click="logIn('facebook')"><i class="fa fa-facebook fa-2x"></i></md-button>
+  <div layout-sm="column" layout-gt-sm="row">
+    <div class="container" flex="60">
+      <p class="flow-text"> Enter you login information </p>
+      <form role="form" ng-submit="logIn(null, identifier, password)">
+        <md-input-container>
+          <label>Username or Email</label>
+            <input name="Username or Email" ng-model="identifier" required>
+        </md-input-container>
+        <md-input-container>
+          <label>Password</label required>
+            <input type="password" name="password" ng-model="password">
+        </md-input-container>
+        <md-button> Submit </md-button>
+      </form>
+  </div>
+  <div class="container" flex="35">
+      <p class="flow-text"> </p>
+        <md-button type="button" ng-click="logIn('facebook')" style="color:white" class="blue flow-text">Log in with <i class="fa fa-facebook fa-2x"></i></md-button>
+      <p class="flow-text">Or - don't have an account?
+      <br>
 
-  Or, don't have an account?
-
-  <a href="/#!/register">Create one here!</a>
+    <a href="/#!/register" ng-click="closeBottomSheet()">Create one here!</a></p>
+  </div>
 </div>
 </md-bottom-sheet>

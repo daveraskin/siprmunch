@@ -1,14 +1,15 @@
 <div class="container" ng-controller="homeCtrl">
 
   <div id="postColumn" layout="column">
-    <md-card class="center-align" ng-repeat="post in posts | orderBy : 'createdAt' : true">
+    <md-card class="center-align" ng-repeat="post in (posts| orderBy : 'createdAt' : true)">
       <div layout="row">
         <div flex="80">
          <md-card-content>
-         <p class="flow-text">{{post.user.username || post.user.firstName +" "+ post.user.lastName}}</p>
-           <p class="flow-text"><span>Only {{post.maxAttending - post.currentAttending}} spot{{(post.maxAttending - post.currentAttending) > 1 ? 's' : ''}} left</span><span> for a {{post.type}} </span>
+         <p class="flow-text">{{post.user.username || post.user.firstName +" "+ post.user.lastName}}:</p>
+            <span style="display:none"> {{post.isFull = (post.maxAttending === post.currentAttending) ? true : false}}</span>
+           <p class="flow-text"><span ng-hide="post.isFull">Only {{post.maxAttending - post.currentAttending}} spot{{(post.maxAttending - post.currentAttending) > 1 ? 's' : ''}} left</span><span ng-show="post.isFull">We've got everyone we need</span><span> for a {{post.type}} </span>
             </p>
-           <img class="avatar"src="http://res.cloudinary.com/htg59sxwt/image/upload/w_90,h_90,c_thumb,g_faces,r_max/ha5fyhnsthrzrvof0uf9.png">
+           <img class="avatar"src="http://res.cloudinary.com/htg59sxwt/image/upload/w_90,h_90,c_thumb,g_faces,r_max/{{post.user.profPic}}.png">
 
 
            <h4><a href="#!/businesses/{{post.locationId}}">{{post.locationName}}</a></h4>
@@ -17,12 +18,14 @@
         </div>
         <div flex="20" class="valign-wrapper">
           <div class="valign">
+         <span style="display: none"> </span>
+            <md-button ng-click="joinChat(post.id)" class="md-fab orange" ng-class="buttonClass()"><i ng-class="glyphClass()" class="fa fa-comments-o"></i></md-button>
+            <br>
+            <md-button ng-click="rsvp(post.id)" ng-hide="hasRSVPed(post.id)" class="md-fab teal" ng-class="buttonClass()"><i ng-class="glyphClass()" class="fa fa-cutlery"></i></md-button>
 
-            <md-button ng-click="joinChat(post.id, $event)" class="md-fab orange"><i class="fa fa-comments-o fa-2x"></i></md-button>
+            <md-button href="#!/uploadImage/{{post.locationId}}" ng-show="hasRSVPed(post.id)" ng-class="buttonClass()" class="md-fab pink"><i ng-class="glyphClass()" class="fa fa-camera-retro"></i></md-button>
             <br>
-            <md-button ng-click="rsvp(post.id)" class="md-fab teal"><i class="fa fa-cutlery fa-2x"></i></md-button>
-            <br>
-            <md-button href="#!/uploadImage/{{post.locationId}}" class="md-fab blue"><i class="fa fa-camera-retro fa-2x"></i></md-button>
+            <md-button class="md-fab blue" ng-class="buttonClass()" ng-click="userShow(post.id)"><i class="fa fa-user" ng-class="glyphClass()"></i></md-button>
           </div>
         </div>
       </div>
