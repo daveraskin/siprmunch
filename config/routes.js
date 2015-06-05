@@ -52,7 +52,14 @@ module.exports.routes = {
   'post /api/chat/join' : 'MessageController.join',
   'post /api/chat/post' : 'MessageController.post',
   'get /api/chat/leave' : 'MessageController.leave',
-  'post /api/getPhotos'  : 'PictureController.get'
+  'post /api/getPhotos'  : 'PictureController.get',
+
+  "get *":{
+   controller:"PagesController",
+   action:"index",
+   skipAssets: true,
+   skipRegex: /^\/api\/.*$/
+ }
 
   /***************************************************************************
   *                                                                          *
