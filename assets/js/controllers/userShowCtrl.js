@@ -6,7 +6,7 @@ siprmnchAngular.controller('userShowCtrl', ['$scope', '$http', 'users', 'post', 
   $scope.creator;
 
 
-  $http.get('/api/post/'+post)
+  $http.get('/api/post/'+ $scope.post)
   .success(function(data){
     console.log('postData', data)
     $scope.creator = (data.user.id)
