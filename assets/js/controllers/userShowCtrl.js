@@ -9,6 +9,7 @@ siprmnchAngular.controller('userShowCtrl', ['$scope', '$http', 'users', 'post', 
   $http.get('/api/post/'+ $scope.post)
   .success(function(data){
     console.log('postData', data)
+    console.log('users', users)
     $scope.creator = (data.user.id)
     $scope.guests = data.currentAttending - $scope.users.length
   })

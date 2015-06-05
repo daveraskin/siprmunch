@@ -91,6 +91,7 @@ siprmnchAngular.controller('homeCtrl', ['$scope', '$http','$q', '$location', '$m
     var users = [];
     $http.get('/api/userInfo')
     .success(function(data){
+      console.log("postId", postId)
       for(var i=0; i < data.length; i++){
         if(data[i].attending === postId){
           users.push(data[i])
