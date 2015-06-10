@@ -130,6 +130,11 @@ siprmnchAngular.controller('homeCtrl', ['$scope', '$http','$q', '$location', '$m
     io.socket.get('/api/post', function(data, jwRes) {
       $scope.$evalAsync(function(){
         $scope.posts = data;
+        for(var i = 0; i < $scope.posts.length; i++){
+          if(typeof $scope.posts[i] != 'object'){
+            $scope.posts.splice(i,1)
+          }
+        }
         $scope.filter($scope.posts)
       })
     })
