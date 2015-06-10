@@ -27,28 +27,28 @@
               </div>
              </md-list-item></a>
              <md-list-item class="md-2-line grey darken-2">
-             <md-checkbox ng-model="isChecked.coffee" ng-click="changeCheck('coffee')"></md-checkbox>
+             <md-checkbox ng-click="$emit('coffee')"></md-checkbox>
                <div class="md-list-item-text">
                   <h3>Coffee</h3>
                  <p>buzz buzz buzz buzz buzz</p>
                </div>
              </md-list-item>
              <md-list-item class="md-2-line grey darken-2">
-             <md-checkbox ng-model="isChecked.drink" ng-click="changeCheck('drink')"></md-checkbox>
+             <md-checkbox ng-model="drink" ng-click="$emit('drink')"></md-checkbox>
                <div class="md-list-item-text">
                   <h3>Drinks</h3>
                  <p>glug glug glug glug glug</p>
                </div>
              </md-list-item>
              <md-list-item class="md-2-line grey darken-2">
-             <md-checkbox ng-model="isChecked.bite" ng-click="changeCheck('bite')"></md-checkbox>
+             <md-checkbox ng-model="bite" ng-click="$emit('bite')"></md-checkbox>
                <div class="md-list-item-text">
                   <h3>Bites</h3>
-                 <p ng-class="isChecked.bite">chomp chomp chomp</p>
+                 <p ng-class="bite">chomp chomp chomp</p>
                </div>
              </md-list-item>
              <md-list-item class="md-2-line grey darken-2">
-             <md-checkbox ng-model="isChecked.meal" ng-click="changeCheck('meal')"></md-checkbox>
+             <md-checkbox ng-model="meal" ng-click="$emit('meal')"></md-checkbox>
                <div class="md-list-item-text">
                   <h3>Meals</h3>
                  <p>nom nom nom nom nom</p>
@@ -86,28 +86,28 @@
               </div>
              </md-list-item></a>
              <md-list-item class="md-2-line grey darken-2">
-             <md-checkbox ng-model="isChecked.coffee" ng-click="changeCheck('coffee')"></md-checkbox>
+             <md-checkbox ng-model="coffee" ng-click="$emit('coffee')"></md-checkbox>
                <div class="md-list-item-text">
                   <h3>Coffee</h3>
                  <p>buzz buzz buzz buzz buzz</p>
                </div>
              </md-list-item>
              <md-list-item class="md-2-line grey darken-2">
-             <md-checkbox ng-model="isChecked.drink" ng-click="changeCheck('drink')"></md-checkbox>
+             <md-checkbox ng-model="drink" ng-click="$emit('drink')"></md-checkbox>
                <div class="md-list-item-text">
                   <h3>Drinks</h3>
                  <p>glug glug glug glug glug</p>
                </div>
              </md-list-item>
              <md-list-item class="md-2-line grey darken-2">
-             <md-checkbox ng-model="isChecked.bite" ng-click="changeCheck('bite')"></md-checkbox>
+             <md-checkbox ng-model="bite" ng-click="$emit('bite')"></md-checkbox>
                <div class="md-list-item-text">
                   <h3>Bites</h3>
                  <p>chomp chomp chomp</p>
                </div>
              </md-list-item>
              <md-list-item class="md-2-line grey darken-2">
-             <md-checkbox ng-model="isChecked.meal" ng-click="changeCheck('meal')"></md-checkbox>
+             <md-checkbox ng-model="meal" ng-click="$emit('meal')"></md-checkbox>
                <div class="md-list-item-text">
                   <h3>Meals</h3>
                  <p>nom nom nom nom nom</p>

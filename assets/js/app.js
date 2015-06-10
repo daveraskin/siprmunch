@@ -9,8 +9,7 @@ siprmnchAngular.config(['$routeProvider', '$locationProvider', function($routePr
 
   $routeProvider
   .when('/', {
-    templateUrl: 'views/homeView.html',
-    controller: 'homeCtrl'
+    templateUrl: 'views/homeView.html'
   })
   .when('/login', {
     templateUrl: 'views/auth/login.html',
@@ -21,8 +20,7 @@ siprmnchAngular.config(['$routeProvider', '$locationProvider', function($routePr
     controller: 'authCtrl'
   })
   .when('/createPost', {
-    templateUrl: 'views/pages/createPost.html',
-    controller: 'homeCtrl'
+    templateUrl: 'views/pages/createPost.html'
   })
   .when('/businesses/:businessId', {
     templateUrl: 'views/pages/businessShow.html',

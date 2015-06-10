@@ -1,11 +1,11 @@
-<div class="container" ng-controller="homeCtrl">
+<div class="container">
 
   <div id="postColumn" layout="column">
     <md-card class="center-align" ng-repeat="post in (posts| orderBy : 'createdAt' : true)">
       <div layout="row">
         <div flex="80">
          <md-card-content>
-         <p class="flow-text">{{post.user.username || post.user.firstName +" "+ post.user.lastName}}:</p>
+         <p class="flow-text">{{post.user.username || post.user.firstName +" "+ post.user.lastName || currentUser.firstName + " " + currentUser.lastName}}:</p>
             <span style="display:none"> {{post.isFull = (post.maxAttending === post.currentAttending) ? true : false}}</span>
            <p class="flow-text"><span ng-hide="post.isFull">Only {{post.maxAttending - post.currentAttending}} spot{{(post.maxAttending - post.currentAttending) > 1 ? 's' : ''}} left</span><span ng-show="post.isFull">We've got everyone we need</span><span> for a {{post.type}} </span>
             </p>

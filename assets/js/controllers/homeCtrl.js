@@ -1,11 +1,27 @@
 siprmnchAngular.controller('homeCtrl', ['$scope', '$http','$q', '$location', '$mdMedia', '$mdSidenav', '$mdBottomSheet', '$mdDialog', '$mdToast', '$rootScope',  function($scope, $http, $q, $location, $mdMedia, $mdSidenav, $mdBottomSheet, $mdDialog, $mdToast, $rootScope){
   console.log('home CTrl loaded')
-  $scope.isChecked = {
-    coffee: true,
-    drink: true,
-    bite: true,
-    meal: true,
-  }
+    $scope.coffee = true;
+    $scope.drink = true;
+    $scope.bite = true;
+    $scope.meal = true;
+
+   $scope.$on('coffee', function() {
+    $scope.coffee = !$scope.coffee;
+    $scope.loadPosts();
+  });
+    $scope.$on('drink', function() {
+    $scope.drink = !$scope.drink;
+    $scope.loadPosts();
+  });
+   $scope.$on('bite', function() {
+    $scope.bite = !$scope.bite;
+    $scope.loadPosts();
+  });
+    $scope.$on('meal', function() {
+    $scope.meal = !$scope.meal;
+    $scope.loadPosts();
+  });
+
   $scope.buttonClass = function(){
     if($mdMedia('sm')){
       return 'md-mini'
@@ -17,22 +33,6 @@ siprmnchAngular.controller('homeCtrl', ['$scope', '$http','$q', '$location', '$m
     }
   }
 
-  $scope.changeCheck = function(type){
-    switch(type){
-      case 'coffee':
-        !$scope.isChecked.coffee
-        break;
-      case 'drink':
-        !$scope.isChecked.drink
-        break;
-      case 'bite':
-        !$scope.isChecked.bite
-        break;
-      case 'meal':
-        !$scope.isChecked.meal
-        break;
-    }
-  }
   $scope.posts;
   $scope.yelpTerm;
   $scope.postData = {
@@ -130,9 +130,28 @@ siprmnchAngular.controller('homeCtrl', ['$scope', '$http','$q', '$location', '$m
     io.socket.get('/api/post', function(data, jwRes) {
       $scope.$evalAsync(function(){
         $scope.posts = data;
-  })
+        $scope.filter($scope.posts)
+      })
+    })
+  }
 
-  })
+  $scope.filter = function(data){
+       for(var i = 0; i < data.length; i++){
+          if(data[i].type === "Coffee" && $scope.coffee != true){
+            $scope.posts.splice(i,1);
+            $scope.filter($scope.posts)
+          }else if(data[i].type === "Drink" && $scope.drink != true){
+            $scope.posts.splice(i,1)
+            $scope.filter($scope.posts)
+          }else if(data[i].type === "Bite" && $scope.bite != true){
+            $scope.posts.splice(i,1)
+            $scope.filter($scope.posts)
+          }else if(data[i].type === "Meal" && $scope.meal != true){
+            $scope.posts.splice(i,1)
+            $scope.filter($scope.posts)
+          }
+        }
+        return $scope.posts
   }
 
   $scope.loadPosts();
@@ -165,14 +184,14 @@ siprmnchAngular.controller('homeCtrl', ['$scope', '$http','$q', '$location', '$m
       console.log('location', $scope.postData.location)
       var currentAttending = parseInt($scope.postData.currentAttending);
       var maxAttending = parseInt($scope.postData.maxAttending);
-      $http.post('/api/userInfo/'+userInfoId+'/posts', {body: $scope.postData.body, locationName: $scope.postData.location.name, locationId: $scope.postData.location.id, type: $scope.postData.type, currentAttending: currentAttending, maxAttending: maxAttending})
+      $http.post('/api/userInfo/'+userInfoId+'/posts', {body: $scope.postData.body, locationName: $scope.postData.location.name, locationId: $scope.postData.location.id, type: $scope.postData.type, currentAttending: currentAttending, maxAttending: maxAttending, userInfo: data.userInfo})
       .success(function(postData){
         console.log('postDAta', postData)
         $http.put('/api/userInfo/'+userInfoId, {attending: postData.posts[postData.posts.length - 1].id})
         .success(function(attendingData){
           console.log(data)
           $mdBottomSheet.hide()
-          $location.path('/')
+            location.href = '/'
         })
         .error(function(error){
         console.log(error)
